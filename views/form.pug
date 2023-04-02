@@ -1,0 +1,34 @@
+extends layout.pug
+
+block content
+
+    .section 
+        form.form(action="/create", method="POST")
+            if data
+                input(type="hidden", name="id",value=data.id)
+            .form__input 
+                label.label Name
+                input.input(type="text", name="name",value=data ? data.name : "")
+                small.error#name
+
+            .form__input 
+                label.label Description 
+                textarea.input(type="text", name="description") #{data ? data.description : ''}
+                small.error#description
+
+            .form__input
+                label.label Expiration date
+                input.input(type="date", name="expire_date",value=data ? data.expire_date : "")
+                small.error#expire_date
+
+            .form__input
+                label.label Country made in
+                input.input(type="text", name="country",value=data ? data.country : "")
+                small.error#country
+
+            button.btn.input Save 
+
+    if errors       
+        script(src="/js/validation.js") 
+        script.
+            setValidationErrors('#{errors}')

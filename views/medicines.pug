@@ -1,0 +1,29 @@
+extends layout.pug 
+
+
+block content 
+    .section 
+        h2 Medicines List
+        if created
+            p Mdicine Saved
+
+    .section.flex.align-start
+        ul.medicines
+            if medicines 
+                each medicine  in medicines
+                    li.medicine
+                        a(href='/show/' + medicine.id) #{medicine.name}
+                        .actions
+                            form(action="/medicines/delete/" + medicine.id, method="POST")
+                                button.action.delete Delete
+                            a(href="/medicines/" + medicine.id+"/edit")
+                                button.action.edit Edit 
+
+        .detail 
+            if medicine
+                p Name: #{medicine.name}
+                p Country made in: #{medicine.country}
+                p Expiration Date: #{medicine.expire_date}
+                p Description: #{medicine.description}
+            else 
+                p Select medicine to see details
